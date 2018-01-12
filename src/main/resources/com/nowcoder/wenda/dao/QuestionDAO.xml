@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 相同包目录下定义xml文件,才能找到映射目录 -->
+<mapper namespace="com.nowcoder.wenda.dao.QuestionDAO">
+	<sql id="table">question</sql>
+	<sql id="selectFields">id,title,content,user_id,created_date,comment_count</sql>
+	<select id="selectLatestQuestion" resultType="com.nowcoder.wenda.model.Question">
+		select
+		<include refid="selectFields"></include>
+		from
+		<include refid="table"></include>
+		<if test="userId !=0">
+			where user_id=#{userId}
+		</if>
+		order by id desc
+		limit #{offset},#{limit}
+	</select>
+</mapper>

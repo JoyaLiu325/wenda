@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nowcoder.wenda.dao.UserDAO">
+	<sql id="table">user</sql>
+	<sql id="selectFields">id,name,password,salt,head_url</sql>
+	<!-- select的id一定要与对应的接口中的对应的方法名相同！！！！！，否则提示与该方法绑定无效 -->
+	<select id="selectByName" resultType="com.nowcoder.wenda.model.User">
+		select 
+		<include refid="selectFields"></include>
+		from
+		<include refid="table"></include>
+		where name = #{name}
+	</select>
+	
+
+
+</mapper>
