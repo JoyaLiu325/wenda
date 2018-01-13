@@ -3,7 +3,6 @@ package com.nowcoder.wenda.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +21,7 @@ import com.nowcoder.wenda.service.UserService;
 
 @Controller
 public class LoginController {
+//	打印出日志信息所在类
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@Autowired

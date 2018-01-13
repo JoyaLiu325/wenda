@@ -14,8 +14,9 @@ public interface QuestionDAO {
 	String insert_fields = " title,content,user_id,created_date,comment_count ";
 	String select_fields = " id, " + insert_fields;
 	
+//	返回值是新插入行的主键
 	@Insert({"insert into " + table_name + "(" + insert_fields + ") values(#{title},#{content},#{userId},#{createdDate},#{commentCount})"})
-	int addQuestion(Question question);
+	int addQuestion(Question question); 
 	
 //	param中的变量为mybatis.xml中的变量 ,后面的变量为传给mybatis.xml的变量值
 	List<Question> selectLatestQuestion(@Param ("userId") int userId,
