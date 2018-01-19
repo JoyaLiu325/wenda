@@ -12,7 +12,7 @@ import com.nowcoder.wenda.model.LoginToken;
 public interface LoginTokenDAO {
 	String table = " login_token ";
 	String insert_fields = " user_id,token,expired,status ";
-	String select_fields = " id "+insert_fields;
+	String select_fields = " id, "+insert_fields;
 	
 	@Insert({"insert into",table,"(",insert_fields,") values (#{userId},#{token},#{expired},#{status})"})
 	int addToken(LoginToken lt);

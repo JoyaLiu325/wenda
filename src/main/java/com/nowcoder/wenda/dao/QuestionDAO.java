@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.nowcoder.wenda.model.Question;
 
@@ -23,6 +24,6 @@ public interface QuestionDAO {
 										@Param ("offset") int offset,
 										@Param ("limit") int limit);
 	
-	
-	
+	@Select({"select "+select_fields + "from"+  table_name + "where id=#{id}" })
+	Question selectById(int id);
 }

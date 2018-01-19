@@ -42,7 +42,7 @@ public class PassportInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object, ModelAndView modelAndView)
 			throws Exception {
 //		把该对象应用到所有模板中
-		if(modelAndView !=null) {
+		if(modelAndView !=null && hostHolder.getUser() !=null) {
 			modelAndView.addObject("user",hostHolder.getUser());
 		}
 	}
@@ -50,7 +50,7 @@ public class PassportInterceptor implements HandlerInterceptor{
 //	在拦截器开始之前就获取当前用户信息，保证之后所有的操作都能访问到该用户
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
-		String token = "";
+		String token = null;
 		if(request.getCookies()!=null) {
 			for(Cookie cookie : request.getCookies()) {
 				if(cookie.getName().equals("token")) {

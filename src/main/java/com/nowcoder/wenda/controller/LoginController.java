@@ -39,6 +39,7 @@ public class LoginController {
 	public String reg(Model model,
 					  @RequestParam("username") String name,
 					  @RequestParam("password") String password,
+					  @RequestParam(value="rememberme",defaultValue="false") boolean rememberme,
 					  @RequestParam(value = "next" ,required = false) String next,
 					  HttpServletResponse response) {
 		try {
@@ -47,6 +48,9 @@ public class LoginController {
 			if(map.containsKey("token")) {
 				Cookie cookie = new Cookie("token", map.get("token"));
 				cookie.setPath("/");
+				if(rememberme == true)
+//					设置为5天
+					cookie.setMaxAge(5*24*60*60);
 				response.addCookie(cookie);
 				if(StringUtils.isNotBlank(next))
 					return "redirect:"+next;
@@ -78,6 +82,9 @@ public class LoginController {
 			if(map.containsKey("token")) {
 				Cookie cookie = new Cookie("token", map.get("token"));
 				cookie.setPath("/");
+				if(rememberme == true)
+//					设置为5天
+					cookie.setMaxAge(5*24*60*60);
 				response.addCookie(cookie);
 				if(StringUtils.isNotBlank(next))
 					return "redirect:"+next;
