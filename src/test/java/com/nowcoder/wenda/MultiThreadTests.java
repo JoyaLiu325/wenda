@@ -2,6 +2,14 @@ package com.nowcoder.wenda;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class MyThread extends Thread{
 	private int tid ;
@@ -128,10 +136,11 @@ public class MultiThreadTests {
 	private static  ThreadLocal<Integer> threadLocalUserIds = new ThreadLocal<>();
 	private static int userId;
 //	使用本地线程变量，创建10个线程，答应出每个线程的id
-	public static void testThreadLocal() {
+	/*public static void testThreadLocal() {
 		
 		for(int i = 0;i< 10;i++) {
 			final int finalId = i;
+//			thread方法的参数为传入实现runnable接口
 			new Thread(new Runnable() {
 
 				@Override
@@ -166,6 +175,7 @@ public class MultiThreadTests {
 			}).start();
 		}
 	}
+	}*/
 	
 	public static void testBlockingQueue() {
 //		阻塞队列实现类三种：
@@ -179,9 +189,73 @@ public class MultiThreadTests {
 		
 	}
 	
+	public static int counter = 0;
+//	原子操作的静态变量
+	public static AtomicInteger atomicInteger = new AtomicInteger(0);
+	public static void testWithoutAtomic() {
+		for(int i = 0;i < 10;i++) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(1000);
+						for(int i =0;i<10;i++) {
+							counter++;
+							System.out.println(counter);
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}).start();
+		}
+	}
+	
+	public static void testWithAtomic() {
+		for(int i = 0;i < 10;i++) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(1000);
+						for(int i =0;i<10;i++) {
+							System.out.println(atomicInteger.getAndIncrement());
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}).start();
+		}
+	}
+	
+	public static void testFuture() {
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		Future<Integer> future = service.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				Thread.sleep(1000);
+				return 1;
+			}
+		
+		});
+		service.shutdown();
+		try {
+//			System.out.println(future.get());
+			System.out.println(future.get(1000, TimeUnit.MILLISECONDS));
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
-//		testThread();
-//		testBlockingQueue();
-		testThreadLocal();
+//		testWithoutAtomic();
+//		testWithAtomic();
+		testFuture();
 	}
 }
