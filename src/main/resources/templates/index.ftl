@@ -35,7 +35,7 @@
                                                 <a class="zm-it1em-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">4168</a></div>
                                             <div class="zm-item-answer-author-info">
                                                 <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/user/${vo.user.id}">${vo.user.name}</a>
-                                                ${vo.question.createdDate?string('yyyy-MM-dd hh-mm-ss')}</div>
+                                                ${vo.question.createdDate?string('yyyy-MM-dd HH:mm:ss')}</div>
                                         	    <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">
                                                 <span class="voters text">
                                                     <a href="#" class="more text">

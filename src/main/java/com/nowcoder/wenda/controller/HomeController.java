@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nowcoder.wenda.model.EntityType;
 import com.nowcoder.wenda.model.Question;
 import com.nowcoder.wenda.model.ViewObject;
+import com.nowcoder.wenda.service.CommentService;
 import com.nowcoder.wenda.service.QuestionService;
 import com.nowcoder.wenda.service.UserService;
 
@@ -25,6 +27,8 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	QuestionService questionService;
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping(path= {"/user/{userId}"})
 	public String userIndex(Model model, @PathVariable("userId") int userId) {

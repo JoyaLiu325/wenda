@@ -126,5 +126,13 @@ public class UserService {
 		return userDAO.selectById(id);
 	}
 	
+	/**
+	 * 通过用户名获取用户
+	 * @param name
+	 * @return
+	 */
+	public User selectUserByName(String name) {
+		return userDAO.selectByName(name);
+	}
 
 }

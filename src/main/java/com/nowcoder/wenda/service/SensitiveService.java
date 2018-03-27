@@ -9,7 +9,7 @@ import java.lang.management.BufferPoolMXBean;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +83,7 @@ public class SensitiveService implements InitializingBean{
 			String tempLine = null;
 			while((tempLine = reader.readLine())!=null) {
 				tempLine = tempLine.trim();
-				System.out.println(tempLine);
+//				System.out.println(tempLine);
 				addWord(tempLine);
 			}
 			reader.close();
@@ -96,7 +96,7 @@ public class SensitiveService implements InitializingBean{
 	private boolean isSymbol(char c) {
 		int cint= (int) c;	
 //		东亚字符
-		return cint<0x2e80 || cint>0x9fff;
+		return !CharUtils.isAsciiAlphanumeric(c) && (cint<0x2e80 || cint>0x9fff);
 	}
 
 //设置两个指针表示敏感词的首尾
@@ -119,7 +119,8 @@ public class SensitiveService implements InitializingBean{
 			}
 			tempNode = tempNode.getSubNode(ch);
 			if(tempNode == null) {
-				sb.append(ch);
+				sb.append(text.charAt(begin));
+//				sb.append(ch);
 				index = ++begin;
 				tempNode = rootNode;
 			}else if(tempNode.isKeywordEnd()) {

@@ -16,6 +16,7 @@ public class QuestionService {
 	QuestionDAO questionDAO;
 	@Autowired
 	SensitiveService sensitiveService;
+	
 	public int addQuestion(Question question) {
 //***** 重要！ 将html字符进行转义，防止xss攻击
 		String title = question.getTitle();
@@ -37,5 +38,9 @@ public class QuestionService {
 	
 	public Question selectById(int id ) {
 		return questionDAO.selectById(id);
+	}
+	
+	public int updateCommentCount(int commentCount ,int id) {
+		return questionDAO.updateCommentCount(commentCount, id);
 	}
 }

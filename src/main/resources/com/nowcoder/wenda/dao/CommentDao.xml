@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 相同包目录下定义xml文件,才能找到映射目录 -->
+<mapper namespace="com.nowcoder.wenda.dao.CommentDAO">
+	<sql id="table">comment</sql>
+	<sql id="selectFields">id,entity_id,entity_type,user_id,created_date,content,status</sql>
+	<select id="getCommentByEntity" resultType="com.nowcoder.wenda.model.Comment">
+		select
+		<include refid="selectFields"></include>
+		from
+		<include refid="table"></include>
+		where entity_id = #{entityId} and entity_type = #{entityType}
+		order by created_date desc
+		<!-- xml文件中 &是非法字符，&&替换为 “and”
+			非法字符包括&，<,>,'," -->
+		<if test="offset != 0 and limit !=0 ">
+		limit #{offset},#{limit}
+		</if>
+	</select>
+</mapper>

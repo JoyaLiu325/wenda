@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.nowcoder.wenda.model.Question;
 
@@ -26,4 +27,7 @@ public interface QuestionDAO {
 	
 	@Select({"select "+select_fields + "from"+  table_name + "where id=#{id}" })
 	Question selectById(int id);
+	
+	@Update({" update " + table_name + " set " + " comment_count = #{commentCount} where id = #{id} "})
+	int updateCommentCount(@Param("commentCount") int commentCount,@Param("id") int id);
 }

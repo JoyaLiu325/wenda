@@ -1,7 +1,10 @@
 package com.nowcoder.wenda.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.swing.text.html.ObjectView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nowcoder.wenda.model.Comment;
+import com.nowcoder.wenda.model.EntityType;
 import com.nowcoder.wenda.model.HostHolder;
 import com.nowcoder.wenda.model.Question;
 import com.nowcoder.wenda.model.User;
+import com.nowcoder.wenda.model.ViewObject;
+import com.nowcoder.wenda.service.CommentService;
 import com.nowcoder.wenda.service.QuestionService;
 import com.nowcoder.wenda.service.UserService;
 import com.nowcoder.wenda.util.WendaUtil;
@@ -31,6 +38,8 @@ public class QuestionController {
 	QuestionService questionService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	CommentService commentService;
 	
 	@RequestMapping(path="/question/add",method= {RequestMethod.POST})
 	@ResponseBody
@@ -61,9 +70,18 @@ public class QuestionController {
 	@RequestMapping(path="/question/{qid}",method= {RequestMethod.GET})
 	public String questionDetail(Model model,@PathVariable("qid") int qid) {
 		Question question = questionService.selectById(qid);
-		User user = userService.getUser(question.getUserId());
 		model.addAttribute("question",question);
-		model.addAttribute("user",user);
+		
+//		获取评论和评论的用户
+		List<Comment> commentList = commentService.getCommentByEntity(question.getId(), EntityType.ENTITY_QUESTION, 0, 0); 
+		List<ViewObject> comments = new ArrayList<>();
+		for(Comment comment :commentList) {
+			 ViewObject viewObject = new ViewObject();
+			 viewObject.set("comment", comment);
+			 viewObject.set("user", userService.getUser(comment.getUserId()));
+			 comments.add(viewObject);
+		}
+		model.addAttribute("comments",comments);
 		return "detail";
 	}
 	

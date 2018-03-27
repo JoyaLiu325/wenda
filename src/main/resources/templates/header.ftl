@@ -2,6 +2,7 @@
 <!-- saved from url=(0029)#signin -->
 <html lang="zh-CN" dropeffect="none" class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile" style="">
 <head>
+<!-- 文件打开编码方式为utf-8 -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script async="" src="../scripts/ga.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
