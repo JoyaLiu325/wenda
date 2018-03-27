@@ -22,7 +22,7 @@ public class CommentController {
 	private static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
 	
 	@Autowired
-	HostHolder hostHolder;
+	HostHolder   hostHolder;
 	@Autowired
 	CommentService commentService; 
 	@Autowired
