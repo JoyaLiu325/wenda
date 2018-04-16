@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nowcoder.wenda.model.HostHolder;
@@ -35,7 +36,7 @@ public class MessageController {
 	@RequestMapping(path= {"/msg/addMessage"}, method= {RequestMethod.POST})
 	@ResponseBody
 //	param来自前端的数据，名称应该与前端一致，参看popmsg.js
-	public String addMessage(@Param("toName") String toName,@Param("content") String content) {
+	public String addMessage(@RequestParam("toName") String toName,@RequestParam("content") String content) {
 		try {
 			if(hostholder.getUser() ==null) {
 				return WendaUtil.getJSONString(999, "未登录");

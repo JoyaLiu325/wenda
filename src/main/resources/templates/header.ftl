@@ -4,7 +4,6 @@
 <head>
 <!-- 文件打开编码方式为utf-8 -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script async="" src="../scripts/ga.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-ZA-Response-Id" content="46acde5c53db46f2806ccad726de9826">
@@ -14,7 +13,7 @@
     <meta http-equiv="mobile-agent" content="format=html5;url=https://nowcoder.com/">
     <meta id="znonce" name="znonce" content="d3edc464cf014708819feffde7ddd01e">
     <link rel="search" type="application/opensearchdescription+xml" href="https://nowcoder.com/static/search.xml" title="牛客">
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/index.css">
     <style>
     .zm-item-answer-author-info a.collapse {margin-top: 0}
     </style>
